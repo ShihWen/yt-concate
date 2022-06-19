@@ -1,40 +1,24 @@
-
-import urllib.request
-import json
 import ssl
-
-from settings import API_KEY
+from pipeline.steps.get_video_list import GetVideoList
+from pipeline.steps.step import StepException
+from pipeline.pipeline import Pipeline
 
 CHANNEL_ID = 'UCKSVUHI9rbbkXhvAXK-2uxA'
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
-def get_all_video_in_channel(channel_id):
-    ssl._create_default_https_context = ssl._create_unverified_context
+def main():
+    input = {
+        'channel_id': CHANNEL_ID
+    }
+
+    steps = [ 
+        GetVideoList(), 
+    ]
+
+    p = Pipeline(steps)
+    p.run(input)
 
 
-    base_video_url = 'https://www.youtube.com/watch?v='
-    base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
-
-    first_url = base_search_url + \
-                f'key={API_KEY}&channelId={channel_id}&part=snippet,id&order=date&maxResults=25'
-
-    video_links = []
-    url = first_url
-    while True:
-        inp = urllib.request.urlopen(url)
-        resp = json.load(inp)
-
-        for i in resp['items']:
-            if i['id']['kind'] == "youtube#video":
-                video_links.append(base_video_url + i['id']['videoId'])
-
-        try:
-            next_page_token = resp['nextPageToken']
-            url = first_url + '&pageToken={}'.format(next_page_token)
-        except KeyError:
-            break
-    return video_links
-
-
-#video_list = get_all_video_in_channel(CHANNEL_ID)
-#print(len(video_list))
+if __name__ == "__main__":  
+    main()
