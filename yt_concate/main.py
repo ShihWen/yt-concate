@@ -1,5 +1,6 @@
 import ssl
 from pipeline.steps.get_video_list import GetVideoList
+from pipeline.steps.download_captions import DownloadCaptions
 from pipeline.steps.step import StepException
 from pipeline.pipeline import Pipeline
 
@@ -14,6 +15,7 @@ def main():
 
     steps = [ 
         GetVideoList(), 
+        DownloadCaptions()
     ]
 
     p = Pipeline(steps)

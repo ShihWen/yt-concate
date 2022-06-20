@@ -33,5 +33,6 @@ class GetVideoList(Step):
                 url = first_url + '&pageToken={}'.format(next_page_token)
             except KeyError:
                 break
+            
         print(len(video_links))
         return video_links
