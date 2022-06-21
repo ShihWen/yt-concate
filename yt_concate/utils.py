@@ -1,3 +1,5 @@
+import os
+
 from settings import DOWNLOADS_DIR
 from settings import CAPTIONS_DIR
 from settings import VIDEOS_DIR
@@ -7,6 +9,11 @@ from settings import VIDEOS_DIR
 class Utils:
     def __init__(self):
         pass
+
+    def create_dirs(self):
+        os.makedirs(DOWNLOADS_DIR, exist_ok=True)
+        os.makedirs(CAPTIONS_DIR, exist_ok=True)
+        os.makedirs(VIDEOS_DIR, exist_ok=True)
 
     @staticmethod
     def get_video_id_from_url(url):

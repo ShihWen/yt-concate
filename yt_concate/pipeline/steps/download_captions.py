@@ -9,7 +9,7 @@ class DownloadCaptions(Step):
     def __init__(self):
         pass
 
-    def process(self, data, inputs):
+    def process(self, data, inputs, utils):
         
         for url in data:
 
@@ -18,7 +18,7 @@ class DownloadCaptions(Step):
             en_caption_convert_to_srt =(en_caption.generate_srt_captions())
             print(en_caption_convert_to_srt)
 
-            text_file = open(self.get_caption_path(url) + '.txt', "w")
+            text_file = open(utils.get_caption_path(url) + '.txt', "w")
             text_file.write(en_caption_convert_to_srt)
             text_file.close()
             break
