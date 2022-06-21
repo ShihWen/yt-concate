@@ -17,7 +17,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 def main():
     input = {
-        'channel_id': CHANNEL_ID
+        'channel_id': CHANNEL_ID,
+        'search_word': 'incredible',
     }
 
     steps = [ 
