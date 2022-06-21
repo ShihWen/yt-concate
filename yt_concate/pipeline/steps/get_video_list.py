@@ -1,9 +1,12 @@
 import urllib.request
 import json
+import pandas as pd
+import os
 
 from pipeline.steps.step import Step
 from pipeline.steps.step import StepException
 from settings import API_KEY
+from settings import DOWNLOADS_DIR
 
 
 class GetVideoList(Step):
@@ -12,6 +15,11 @@ class GetVideoList(Step):
 
     def process(self, data, inputs, utils):    
         channel_id = inputs['channel_id']
+
+
+        if utils.video_list_file_exists(channel_id):
+            return self.read_file(utils.get_video_list_file_path(channel_id))
+
         base_video_url = 'https://www.youtube.com/watch?v='
         base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
 
@@ -20,7 +28,8 @@ class GetVideoList(Step):
 
         video_links = []
         url = first_url
-        while True:
+        query_cnt = 0
+        while query_cnt < 1:
             inp = urllib.request.urlopen(url)
             resp = json.load(inp)
 
@@ -31,8 +40,24 @@ class GetVideoList(Step):
             try:
                 next_page_token = resp['nextPageToken']
                 url = first_url + '&pageToken={}'.format(next_page_token)
+                query_cnt += 1
             except KeyError:
                 break
+                   
+        self.write_to_file(video_links, utils.get_video_list_file_path(channel_id))
+        
+        return video_links
+
             
-        print(len(video_links))
+    def write_to_file(self, video_links, filepath):
+        with open(filepath, 'w') as f:
+            for url in video_links:
+                f.write(url + '\n')
+    
+
+    def read_file(self, filepath):
+        video_links = []
+        with open(filepath, 'r') as f:
+             for url in f:
+                video_links.append(url.strip())
         return video_links

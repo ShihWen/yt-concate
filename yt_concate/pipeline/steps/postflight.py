@@ -2,4 +2,5 @@ from pipeline.steps.step import Step
 
 
 class Postflight(Step):
-    pass
+    def process(self, data, inputs, utils):
+        pass

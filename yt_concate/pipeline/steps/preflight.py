@@ -2,5 +2,6 @@ from pipeline.steps.step import Step
 from utils import Utils
 
 class Preflight(Step):
-    print('In Preflight')
-    Utils.create_dirs()
+    def process(self, data, inputs, utils):
+        print('In Preflight')
+        utils.create_dirs()

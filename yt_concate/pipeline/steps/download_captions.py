@@ -4,23 +4,31 @@ import os
 from pipeline.steps.step import Step
 from pipeline.steps.step import StepException
 
+import time
 
 class DownloadCaptions(Step):
     def __init__(self):
         pass
 
     def process(self, data, inputs, utils):
-        
+        start = time.time()
         for url in data:
-
+            if utils.caption_file_exists(url):
+                print(f'file exists: {url}')
+                continue
+            
+            
             source = YouTube(url)
             en_caption = source.captions.get_by_language_code('a.en')
             en_caption_convert_to_srt =(en_caption.generate_srt_captions())
             print(en_caption_convert_to_srt)
 
-            text_file = open(utils.get_caption_path(url) + '.txt', "w")
+
+            text_file = open(utils.get_caption_path(url) + '.txt', "w", encoding='utf-8')
             text_file.write(en_caption_convert_to_srt)
             text_file.close()
-            break
+
+        end = time.time()
+        print(f'took {end-start} seconds')
 
 
