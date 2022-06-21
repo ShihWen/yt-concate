@@ -23,7 +23,7 @@ class DownloadCaptions(Step):
                 en_caption = source.captions.get_by_language_code('a.en')
                 en_caption_convert_to_srt =(en_caption.generate_srt_captions())
 
-            except (KeyError, AttributeError):
+            except (KeyError, AttributeError) as e:
                 print(f'Error when downloading caption for {url}')
                 continue
             

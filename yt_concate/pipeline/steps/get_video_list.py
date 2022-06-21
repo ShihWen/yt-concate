@@ -1,6 +1,5 @@
 import urllib.request
 import json
-import pandas as pd
 import os
 
 from pipeline.steps.step import Step

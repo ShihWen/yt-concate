@@ -28,5 +28,5 @@ class ReadCaptions(Step):
                         time_line = False
             data[caption_file] = captions
 
-        pprint(data)
+        #pprint(data)
         return data
