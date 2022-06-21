@@ -18,7 +18,8 @@ class GetVideoList(Step):
 
 
         if utils.video_list_file_exists(channel_id):
-            return self.read_file(utils.get_video_list_file_path(channel_id))
+            print(f'found existing video list file for {channel_id}')
+            return self.read_file(utils.get_video_list_filepath(channel_id))
 
         base_video_url = 'https://www.youtube.com/watch?v='
         base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
@@ -44,7 +45,7 @@ class GetVideoList(Step):
             except KeyError:
                 break
                    
-        self.write_to_file(video_links, utils.get_video_list_file_path(channel_id))
+        self.write_to_file(video_links, utils.get_video_list_filepath(channel_id))
         
         return video_links
 
