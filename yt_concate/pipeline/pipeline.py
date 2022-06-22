@@ -1,5 +1,11 @@
 from pipeline.steps.step import StepException
 
+'''
+任何步驟皆需要return東西(交接)data給下一步驟
+不然會出錯
+參考lec 49-13:00
+
+'''
 
 class Pipeline:
     def __init__(self, steps):

@@ -1,5 +1,5 @@
 from pipeline.steps.step import Step
-from yt_concate.model.yt import YT
+from model.yt import YT
 
 '''
 LEC 48

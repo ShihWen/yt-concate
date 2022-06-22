@@ -15,7 +15,7 @@ class DownloadCaptions(Step):
         start = time.time()
         for yt in data:
             print(f'downloading captions for {yt.id}')
-            if utils.caption_file_exists(yt.url):
+            if utils.caption_file_exists(yt):
                 print(f'file exists: {yt.url}')
                 continue
             
@@ -33,6 +33,10 @@ class DownloadCaptions(Step):
             text_file.close()
 
         end = time.time()
-        print(f'took {end-start} seconds')
+        #print(f'took {end-start} seconds')
+    
+        return data
+
+
 
 
