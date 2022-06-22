@@ -4,6 +4,7 @@ from pipeline.steps.step import Step
 class ReadCaptions(Step):
     # 兩層字典影響易讀性 47-17:30，可再優化
     # 使用pprint查詢字典內容 47-25:42
+    # LEC 49: 使用class 替代 雙層字典 
 
     def process(self, data, inputs, utils):
         for yt in data:
