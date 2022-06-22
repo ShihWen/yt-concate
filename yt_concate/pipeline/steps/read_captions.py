@@ -1,18 +1,17 @@
-from pprint import pprint
-import os
-
 from pipeline.steps.step import Step
-from settings import CAPTIONS_DIR
+
 
 class ReadCaptions(Step):
     # 兩層字典影響易讀性 47-17:30，可再優化
     # 使用pprint查詢字典內容 47-25:42
 
     def process(self, data, inputs, utils):
-        data = {}
-        for caption_file in os.listdir(CAPTIONS_DIR):
+        for yt in data:
+            if not utils.caption_file_exists(yt):
+                continue
+            
             captions = {}
-            with open(os.path.join(CAPTIONS_DIR, caption_file), 'r', encoding='utf-8') as f:
+            with open(yt.caption_filepath, 'r', encoding='utf-8') as f:
                 time_line = False
                 time = None
                 caption = None
@@ -26,7 +25,6 @@ class ReadCaptions(Step):
                         caption = line
                         captions[caption] = time
                         time_line = False
-            data[caption_file] = captions
+            yt.captions = captions
 
-        #pprint(data)
         return data

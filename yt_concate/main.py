@@ -3,6 +3,7 @@ import ssl
 from pipeline.steps.preflight import Preflight
 from pipeline.steps.postflight import Postflight
 from pipeline.steps.get_video_list import GetVideoList
+from pipeline.steps.initialize_yt import InitializeYT
 from pipeline.steps.download_captions import DownloadCaptions
 from pipeline.steps.read_captions import ReadCaptions
 from pipeline.steps.step import StepException
@@ -24,6 +25,7 @@ def main():
     steps = [ 
         Preflight(),
         GetVideoList(), 
+        InitializeYT(),
         DownloadCaptions(),
         ReadCaptions(),
         Postflight()
