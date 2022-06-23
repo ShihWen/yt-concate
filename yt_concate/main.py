@@ -7,6 +7,7 @@ from pipeline.steps.initialize_yt import InitializeYT
 from pipeline.steps.download_captions import DownloadCaptions
 from pipeline.steps.read_captions import ReadCaptions
 from pipeline.steps.search import Search
+from pipeline.steps.download_video import DownloadVideos
 from pipeline.steps.step import StepException
 from pipeline.pipeline import Pipeline
 from utils import Utils
@@ -30,6 +31,7 @@ def main():
         DownloadCaptions(),
         ReadCaptions(),
         Search(),
+        DownloadVideos(),
         Postflight()
     ]
 

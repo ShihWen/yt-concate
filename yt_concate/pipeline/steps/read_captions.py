@@ -24,7 +24,7 @@ class ReadCaptions(Step):
                         continue
                     if time_line:
                         caption = line
-                        captions[caption] = time
+                        captions[caption] = time # 同樣考驗記憶力，可考慮將captions建立成model
                         time_line = False
             yt.captions = captions
 

@@ -37,7 +37,7 @@ class YT:
 
      
     def get_video_filepath(self):
-        return os.path.join(VIDEOS_DIR, self.id + '.txt')
+        return os.path.join(VIDEOS_DIR, self.id + '.mp4')
 
 
     def __str__(self):
