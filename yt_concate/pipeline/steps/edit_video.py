@@ -9,6 +9,8 @@ class EditVideos(Step):
     def process(self, data, inputs, utils):
         clips = []
         for found in data:
+            if found.yt.video_filepath == 'downloads/videos/b9dWgUlMb9o.mp4': # something wrong with captions
+                continue
             start_time, end_time = self.parse_caption_time(found.time)
 
             video =  VideoFileClip(found.yt.video_filepath).subclip(start_time, end_time)
