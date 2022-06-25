@@ -17,7 +17,7 @@ from utils import Utils
 CHANNEL_ID = 'UCKSVUHI9rbbkXhvAXK-2uxA'
 ssl._create_default_https_context = ssl._create_unverified_context
 
-# Hello from Testrite 3 !
+# This is multi-threads branch 
 
 def main():
     input = {
