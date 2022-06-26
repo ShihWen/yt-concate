@@ -9,9 +9,16 @@ class EditVideos(Step):
     def process(self, data, inputs, utils):
         clips = []
         for found in data:
-            if found.yt.video_filepath == 'downloads/videos/b9dWgUlMb9o.mp4': # something wrong with captions
-                continue
             start_time, end_time = self.parse_caption_time(found.time)
+
+            video_duration = VideoFileClip(found.yt.video_filepath).duration
+            start_time_sec = self.parse_time_to_sec(start_time)
+            end_time_sec = self.parse_time_to_sec(end_time)
+
+            # print(found.yt.url ,video_duration, start_time_sec, end_time_sec)
+            if start_time_sec > video_duration or end_time_sec > video_duration:
+                print(f'caption_timeline missmatch with video duration: {found.yt.url}')
+                continue
 
             video =  VideoFileClip(found.yt.video_filepath).subclip(start_time, end_time)
             clips.append(video)
@@ -31,3 +38,9 @@ class EditVideos(Step):
         h, m, s = time_str.split(':')
         s, ms = s.split(',')
         return int(h), int(m), int(s) + int(ms) / 1000
+
+    def parse_time_to_sec(self, tuple_time):
+        hr_to_sec = tuple_time[0] * 60 * 60
+        min_to_sec = tuple_time[1] * 60
+        sec = tuple_time[2]
+        return hr_to_sec + min_to_sec + sec

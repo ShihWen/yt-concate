@@ -18,6 +18,16 @@ class Utils:
         os.makedirs(OUTPUTS_DIR, exist_ok=True)
 
 
+    def delete_cap_files(self):
+        for file in os.listdir(CAPTIONS_DIR):
+            os.remove(os.path.join(CAPTIONS_DIR, file))
+
+
+    def delete_video_files(self):
+        for file in os.listdir(VIDEOS_DIR):
+            os.remove(os.path.join(VIDEOS_DIR, file))
+
+
     def get_video_list_filepath(self, channel_id):
         return os.path.join(DOWNLOADS_DIR, channel_id + '.txt')
 
