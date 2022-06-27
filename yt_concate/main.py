@@ -1,5 +1,6 @@
 import ssl
 
+from pipeline.steps.cmd_line_args import arg_parse
 from pipeline.steps.preflight import Preflight
 from pipeline.steps.postflight import Postflight
 from pipeline.steps.get_video_list import GetVideoList
@@ -26,6 +27,9 @@ def main():
         'limit': 20,
     }
 
+    arg_parse(input)
+
+
     steps = [
         Preflight(),
         GetVideoList(), 
@@ -35,7 +39,7 @@ def main():
         Search(),
         DownloadVideos(),
         EditVideos(),
-        #Postflight()
+        # Postflight()
     ]
 
     utils = Utils()

@@ -28,8 +28,8 @@ class GetVideoList(Step):
 
         video_links = []
         url = first_url
-        # query_cnt = 0
-        while True:
+        query_cnt = 0
+        while query_cnt <= 2:
             inp = urllib.request.urlopen(url)
             resp = json.load(inp)
 
@@ -40,7 +40,7 @@ class GetVideoList(Step):
             try:
                 next_page_token = resp['nextPageToken']
                 url = first_url + '&pageToken={}'.format(next_page_token)
-                #query_cnt += 1
+                query_cnt += 1
             except KeyError:
                 break
                    
