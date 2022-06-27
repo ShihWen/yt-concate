@@ -25,7 +25,7 @@ class DownloadVideos(Step):
         print(f'Videos to download:{len(yt_set)}')        
 
         processes = []
-        with ThreadPoolExecutor(max_workers=10) as executor:
+        with ThreadPoolExecutor(max_workers=3) as executor:
             for yt in yt_set:  
                 processes.append(executor.submit(self.download_video, yt, utils))       
    

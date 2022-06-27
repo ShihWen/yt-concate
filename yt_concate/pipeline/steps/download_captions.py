@@ -36,7 +36,7 @@ class DownloadCaptions(Step):
         start = time.time()
 
         processes = []
-        with ThreadPoolExecutor(max_workers=20) as executor:
+        with ThreadPoolExecutor(max_workers=10) as executor:
             for yt in data:
                 processes.append(executor.submit(self.download_captions, yt, utils))       
 
